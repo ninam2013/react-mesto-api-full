@@ -18,3 +18,18 @@ node_modules
 *.log
 
 .env
+.cache
+.config
+.local
+.pm2
+.ssh
+.bash_history
+.bash_logout
+.bashrc
+.dbshell
+.gitconfig
+.mongorc.js
+.profile
+.selected_editor
+package-lock.json
+practicum_keys
