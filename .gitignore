@@ -18,11 +18,11 @@ node_modules
 *.log
 
 
-/.cache
-/.config
-/.local
-/.pm2
-/.ssh
+.cache
+.config
+.local
+.pm2
+.ssh
 .env
 .bash_history
 .bash_logout
