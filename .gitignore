@@ -17,12 +17,13 @@ node_modules
 # log files
 *.log
 
+
+/.cache
+/.config
+/.local
+/.pm2
+/.ssh
 .env
-.cache
-.config
-.local
-.pm2
-.ssh
 .bash_history
 .bash_logout
 .bashrc
