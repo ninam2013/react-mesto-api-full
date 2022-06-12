@@ -10,6 +10,7 @@ const { login, createUser } = require('./controllers/users');
 const NotFoundError = require('./error/NotFoundError');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 
+const DEFAULT_ALLOWED_METHODS = 'GET,HEAD,PUT,PATCH,POST,DELETE';
 const { PORT = 3000 } = process.env;
 const app = express();
 // присоединяем к localhost:27017
@@ -21,6 +22,18 @@ app.use(express.json());
 // подключаем логгер запросов перед всеми обработчиками
 app.use(requestLogger);
 
+//добавляем поддержку CORS
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Headers', '*');
+  res.header('Access-Control-Allow-Methods', DEFAULT_ALLOWED_METHODS);
+  if (req.method === 'OPTIONS') {
+    res.send(200);
+  }
+  next();
+});
+
+//краш-тест сервера
 app.get('/crash-test', () => {
   setTimeout(() => {
     throw new Error('Сервер сейчас упадёт');
