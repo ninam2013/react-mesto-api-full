@@ -32,5 +32,5 @@ node_modules
 .mongorc.js
 .profile
 .selected_editor
-package-lock.json
-practicum_keys
+/package-lock.json
+/practicum_keys
