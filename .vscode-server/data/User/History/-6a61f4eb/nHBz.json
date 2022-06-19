@@ -1,0 +1,12 @@
+{
+    "[html]": {
+        "editor.defaultFormatter": "vscode.html-language-features"
+    },
+    "liveServer.settings.donotShowInfoMsg": true,
+    "editor.fontSize": 16,
+    "javascript.updateImportsOnFileMove.enabled": "always",
+    "workbench.activityBar.visible": false,
+    "remote.SSH.remotePlatform": {
+        "mesto": "linux"
+    }
+}
