@@ -21,7 +21,9 @@ node_modules
 .cache
 .config
 .local
+.git
 .pm2
+.npm
 .ssh
 .env
 .bash_history
@@ -33,4 +35,5 @@ node_modules
 .profile
 .selected_editor
 /package-lock.json
-/practicum_keys
+mongodb-org-server_5.0.9_amd64.deb
+mongodb-org-server_5.0.9_amd64.deb.1

@@ -25,8 +25,8 @@ const returnUser = (req, res, next) => {
     .then((user) => {
       if (!user) {
         return next(new NotFoundError('Пользователь не найден'));
-      }
-      return res.send({ data: user });
+      }	
+      return res.send( user );
     })
     .catch((err) => {
       if (err.kind === 'ObjectId') {
@@ -51,11 +51,14 @@ const createUser = (req, res, next) => {
       password: hash,
     }))
     // вернём записанные в базу данные
-    .then((user) => res.status(201).send({
+    .then((user) => {
+ res.status(201).send({
       name: user.name,
       about: user.about,
       avatar: user.avatar,
-    }))
+      email: user.email,
+    })
+})
     // данные не записались, вернём ошибку
     .catch((err) => {
       if (err.name === 'ValidationError') {
@@ -71,12 +74,12 @@ const createUser = (req, res, next) => {
 const updateProfile = (req, res, next) => {
   // обнавляем данные пользователя по _id
   const { name, about } = req.body;
-  User.findByIdAndUpdate(req.user._id, { name, about }, { runValidators: true, new: true })
+  User.findByIdAndUpdate(req.user._id, { name, about }, { runValidators: true, new: true, upsert: true })
     .then((user) => {
       if (!user) {
         return next(new NotFoundError('Пользователь не найден'));
       }
-      return res.send({ data: user });
+      return res.send( user );
     })
     .catch((err) => {
       if (err.name === 'CastError' || err.name === 'ValidationError') {
@@ -90,11 +93,11 @@ const updateAvatar = (req, res, next) => {
   // обнавляем аватар по _id
   const { avatar } = req.body;
   User.findByIdAndUpdate(req.user._id, { avatar }, { new: true, runValidators: true })
-    .then((user) => {
+    .then((user) => {    
       if (!user) {
         return next(new NotFoundError('Пользователь не найден'));
       }
-      return res.send({ data: user });
+      return res.send( user );
     })
     .catch((err) => {
       if (err.name === 'ValidationError') {
@@ -107,7 +110,7 @@ const updateAvatar = (req, res, next) => {
 const login = (req, res, next) => {
   const { email, password } = req.body;
   // возвращаем метод findUserByCredentials проверки почты и пароля
-  User.findUserByCredentials(email, password)
+  return User.findUserByCredentials(email, password)
     .then((user) => {
       // аутентификация успешна! создадим токен. Для этого вызовем метод jwt.sign с 3 аргументами
       // 1.пайлоад 2.секретный ключ(соль) 3.время действия токена
@@ -127,7 +130,7 @@ const returnProfile = (req, res, next) => {
       if (!user) {
         return next(new NotFoundError('Пользователь не найден'));
       }
-      return res.send({ data: user });
+      return res.send( user );
     })
     .catch(next);
 };
