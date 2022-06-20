@@ -8,7 +8,7 @@ const NotFoundError = require('../error/NotFoundError');
 const getCards = (_, res, next) => {
   // все карточки
   Card.find({})
-    .then((cards) => res.send( cards ))
+    .then((cards) => res.send(cards))
     .catch(next);
 };
 
@@ -23,8 +23,8 @@ const createCard = (req, res, next) => {
   Card.create({ name, link, owner })
     // вернём записанные в базу данные
     .then((card) => {
- res.send( card )
-})
+      res.send(card);
+    })
     // данные не записались, вернём ошибку
     .catch((err) => {
       if (err.name === 'ValidationError') {
@@ -41,13 +41,13 @@ const deleteCard = (req, res, next) => {
       if (!card) {
         return next(new NotFoundError('Карточка не найдена'));
       }
-      if (req.user._id !== card.owner.toString()) {	
+      if (req.user._id !== card.owner.toString()) {
         return next(new ForbiddenError('Нет прав на удаление'));
       }
       // удаляем карточку по _id
       return Card.findByIdAndRemove(req.params.cardsId)
-        .then((cardData) => {    
-          res.send( {cardData} );
+        .then((cardData) => {
+          res.send({ cardData });
         })
         .catch(next);
     })
@@ -70,7 +70,7 @@ const likesCard = (req, res, next) => {
       if (!card) {
         return next(new NotFoundError('Карточка не найдена'));
       }
-      return res.send(card );
+      return res.send(card);
     })
     .catch((err) => {
       if (err.name === 'CastError') {

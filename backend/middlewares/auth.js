@@ -1,5 +1,6 @@
 // подключаем для создание токена
 const jwt = require('jsonwebtoken');
+
 const { NODE_ENV, JWT_SECRET } = process.env;
 // ошибка
 const UnauthorizedError = require('../error/UnauthorizedError');

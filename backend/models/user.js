@@ -46,8 +46,6 @@ const userSchema = new mongoose.Schema({
 });
 
 // добавим метод findUserByCredentials с двумя параметрами почта и пароль
-//т.к. писал метод в точности как в теории (спринт14 "собственные методы моделей Mongoose") и сделать функцию стрелочной нельзя, потому что используется this,
-//а если я назову как-то функцию, то предполагаю возникнут проблемы с методом и дальнейшим вызовом его в controllers/users. исправить ошибку линтера нет возможности
 userSchema.statics.findUserByCredentials = function (email, password) {
   // попытаемся найти пользователя по почте и скрываем пароль
   return this.findOne({ email }).select('+password')

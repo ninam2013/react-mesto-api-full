@@ -57,7 +57,7 @@ const createUser = (req, res, next) => {
         about: user.about,
         avatar: user.avatar,
         email: user.email,
-      })
+      });
     })
     // данные не записались, вернём ошибку
     .catch((err) => {
@@ -74,7 +74,11 @@ const createUser = (req, res, next) => {
 const updateProfile = (req, res, next) => {
   // обнавляем данные пользователя по _id
   const { name, about } = req.body;
-  User.findByIdAndUpdate(req.user._id, { name, about }, { runValidators: true, new: true, upsert: true })
+  User.findByIdAndUpdate(req.user._id, { name, about }, {
+    runValidators: true,
+    new: true,
+    upsert: true,
+  })
     .then((user) => {
       if (!user) {
         return next(new NotFoundError('Пользователь не найден'));
